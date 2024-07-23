@@ -310,6 +310,34 @@
             </Config>
           </value>
         </entry>
+        <entry key="sys_user_role">
+          <value>
+            <Config>
+              <option name="annotationDAO" value="true" />
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SysUserRoleDao" />
+              <option name="daoPackage" value="com.hao.lzlglab.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SysUserRole" />
+              <option name="modelPackage" value="com.hao.lzlglab.entity" />
+              <option name="name" value="sys_user_role" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="sys_user_role" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

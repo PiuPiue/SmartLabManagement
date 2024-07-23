@@ -2,6 +2,7 @@ package com.hao.lzlglab.web;
 
 import com.github.pagehelper.PageInfo;
 import com.hao.lzlglab.entity.SysUser;
+import com.hao.lzlglab.entity.SysUserRequest;
 import com.hao.lzlglab.service.UsersService;
 import com.hao.lzlglab.utils.Result;
 import io.swagger.annotations.Api;
@@ -38,8 +39,8 @@ public class UserController {
      */
     @GetMapping("/all")
     @ApiOperation("分页查询用户")
-    public Result getAllUserByCondition(Integer pageNum,Integer pageSize){
-        PageInfo<SysUser> list = usersService.getAllUserByCondition(pageNum,pageSize);
+    public Result getAllUserByCondition(Integer pageNum,Integer pageSize,String name){
+        PageInfo<SysUser> list = usersService.getAllUserByCondition(pageNum,pageSize,name);
         return Result.success(list);
     }
 
@@ -50,8 +51,17 @@ public class UserController {
      */
     @ApiOperation("新增或修改用户")
     @PostMapping("/saveOrUpdate")
-    public Result saveOrUpdate(@RequestBody SysUser sysUser){
-        usersService.saveOrUpdate(sysUser);
+    public Result saveOrUpdate(@RequestBody SysUserRequest sysUser){
+        SysUser sysUser1 = new SysUser();
+        sysUser1.setUserId(sysUser.getUserId());
+        sysUser1.setUsername(sysUser.getUsername());
+        sysUser1.setPassword(sysUser.getPassword());
+        sysUser1.setRealname(sysUser.getRealname());
+        sysUser1.setEmail(sysUser.getEmail());
+        sysUser1.setMobile(sysUser.getMobile());
+        sysUser1.setStatus(sysUser.getStatus());
+        sysUser1.setCreateUserId(sysUser.getCreateUserId());
+        usersService.saveOrUpdate(sysUser1,sysUser.getRoles());
         return Result.success();
     }
 
@@ -62,6 +72,11 @@ public class UserController {
         return Result.success();
     }
 
+    @PostMapping("/deleteBanch")
+    public Result deleteBanch(@RequestBody List<String> ids){
+        usersService.deleteBanch(ids);
+        return Result.success();
+    }
 
 
 

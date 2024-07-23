@@ -17,13 +17,17 @@ public interface UsersService {
 
     /**
      * 新增或修改用户
+     *
      * @param sysUser
+     * @param roles
      */
-    void saveOrUpdate(SysUser sysUser);
+    void saveOrUpdate(SysUser sysUser, List<Integer> roles);
 
     void deleteUserById(Integer id);
 
-    PageInfo<SysUser> getAllUserByCondition(Integer pageNum, Integer pageSize);
+    PageInfo<SysUser> getAllUserByCondition(Integer pageNum, Integer pageSize, String name);
 
     void login(String userName, String passWord);
+
+    void deleteBanch(List<String> ids);
 }

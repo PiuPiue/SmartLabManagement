@@ -43,7 +43,6 @@ public class RoleController {
         sysRole.setRoleId(roleDto.getRoleId());
         sysRole.setRoleName(roleDto.getRoleName());
         sysRole.setRemark(roleDto.getRemark());
-
         List<String> menus = roleDto.getMenus();
         roleService.saveOrUpdateRole(sysRole, menus);
         return Result.success();
