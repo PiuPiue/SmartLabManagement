@@ -20,7 +20,11 @@ public class LabsEnvController {
     private LabsEnvService labsEnvService;
 
     @RequestMapping("/detail/by/condition")
-    public Result getEnv(String type, @DateTimeFormat(pattern = "yyyy-MM-dd ") Date begin, @DateTimeFormat(pattern = "yyyy-MM-dd ") Date end,String pageNum,String pageSize) {
+    public Result getEnv(String type,
+                         @DateTimeFormat(pattern = "yyyy-MM-dd ") Date begin,
+                         @DateTimeFormat(pattern = "yyyy-MM-dd ") Date end,
+                         String pageNum,
+                         String pageSize) {
         PageInfo<SmartEnv> list = labsEnvService.getEnv( type, begin, end,pageNum,pageSize);
         return Result.success(list);
     }
