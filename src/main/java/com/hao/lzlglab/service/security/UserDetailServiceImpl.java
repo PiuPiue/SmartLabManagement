@@ -35,25 +35,33 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUserExample example = new SysUserExample();
-        System.out.println(username+"------------------------------------");
+        System.out.println(username + "------------------------------------");
         example.createCriteria().andUsernameEqualTo(username);
-        com.hao.lzlglab.entity.SysUser user = sysUserDao.selectByExample(example).get(0);
-        if (sysUserDao.selectByExample(example).size() == 0) {
+        List<com.hao.lzlglab.entity.SysUser> users = sysUserDao.selectByExample(example);
+        if (users.isEmpty()) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+        com.hao.lzlglab.entity.SysUser user = users.get(0);
+
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
         List<SysRole> list = roleExtMapper.selectRolesByUserId(String.valueOf(user.getUserId()));
         for (SysRole role : list) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
             List<SysMenu> menuByRoleId = menuExtMapper.getMenuByRoleId(String.valueOf(role.getRoleId()));
             for (SysMenu sysMenu : menuByRoleId) {
-                if(sysMenu.getUrl()!=null)
+                if (sysMenu.getUrl() != null && !sysMenu.getUrl().trim().isEmpty()) {
                     authorities.add(new SimpleGrantedAuthority(sysMenu.getUrl()));
-                else
+                }
+                if (sysMenu.getPerms() != null && !sysMenu.getPerms().trim().isEmpty()) {
                     authorities.add(new SimpleGrantedAuthority(sysMenu.getPerms()));
+                }
+                if (sysMenu.getName() != null && !sysMenu.getName().trim().isEmpty()) {
+                    authorities.add(new SimpleGrantedAuthority(sysMenu.getName()));
+                }
             }
-
         }
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
+
 }

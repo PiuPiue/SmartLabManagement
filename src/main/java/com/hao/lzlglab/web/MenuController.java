@@ -4,12 +4,14 @@ import com.hao.lzlglab.entity.SysMenu;
 import com.hao.lzlglab.service.MenuService;
 import com.hao.lzlglab.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/sys")
+@PreAuthorize("hasAnyRole('超级管理员')")
 public class MenuController {
 
     @Autowired

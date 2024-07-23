@@ -34,6 +34,14 @@ public class Result<T> {
         return error(ResultCode.FAILURE);
     }
 
+    public static Result error(int code,String message){
+        Result result = new Result();
+        result.setCode(code);
+        result.setMessage(message);
+        result.setTimestamp(System.currentTimeMillis());
+        return result;
+    }
+
     //响应失败，使用枚举中定义的方法
     public static Result error(ResultCode resultCode){
         return error(resultCode,null);

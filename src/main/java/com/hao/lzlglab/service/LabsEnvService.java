@@ -13,5 +13,7 @@ public interface LabsEnvService {
 
     PageInfo<SmartEnv> getEnv(String type, Date begin, Date end, String pageNum, String pageSize);
 
-    List<SmartEnvDetail> getStatisticByMonth(Date date);
+    List<SmartEnv> getStatisticByMonth(Date date);
+
+    Object getStatisticByYear(Date date);
 }

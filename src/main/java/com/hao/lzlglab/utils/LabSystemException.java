@@ -1,5 +1,9 @@
 package com.hao.lzlglab.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
 public class LabSystemException extends RuntimeException{
 
     //状态码

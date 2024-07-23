@@ -43,8 +43,8 @@ public class LabsEnvImpl implements LabsEnvService {
     }
 
     @Override
-    public List<SmartEnvDetail> getStatisticByMonth(Date date) {
-        SmartEnvDetailExample example = new SmartEnvDetailExample();
+    public List<SmartEnv> getStatisticByMonth(Date date) {
+        SmartEnvExample example = new SmartEnvExample();
         // 计算当月的第一天
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -57,7 +57,26 @@ public class LabsEnvImpl implements LabsEnvService {
 
         // 使用计算出的日期范围修改查询条件
         example.createCriteria().andGatherDateBetween(firstDayOfMonth, lastDayOfMonth);
-        List<SmartEnvDetail> smartEnvs = smartEnvDetailDao.selectByExample(example);
+        List<SmartEnv> smartEnvs = smartEnvDao.selectByExample(example);
+        return smartEnvs;
+    }
+
+    @Override
+    public Object getStatisticByYear(Date date) {
+        SmartEnvExample example = new SmartEnvExample();
+        // 计算当年的第一天
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_YEAR, 1);
+        Date firstDayOfMonth = cal.getTime();
+
+        // 计算当年的最后一天
+        cal.set(Calendar.DAY_OF_YEAR, cal.getActualMaximum(Calendar.DAY_OF_YEAR));
+        Date lastDayOfMonth = cal.getTime();
+
+        // 使用计算出的日期范围修改查询条件
+        example.createCriteria().andGatherDateBetween(firstDayOfMonth, lastDayOfMonth);
+        List<SmartEnv> smartEnvs = smartEnvDao.selectByExample(example);
         return smartEnvs;
     }
 }

@@ -34,7 +34,10 @@ public class LabsEnvController {
         return Result.success(labsEnvService.getStatisticByMonth(date));
     }
 
-
+    @GetMapping("/statistic/by/year")
+    public Result getStatisticByYear(@DateTimeFormat(pattern = "yyyy") Date year) {
+        return Result.success(labsEnvService.getStatisticByYear(year));
+    }
 
 
 
