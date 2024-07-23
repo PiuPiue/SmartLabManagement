@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hao.lzlglab.dao.SmartDeviceDao">
+  <resultMap id="BaseResultMap" type="com.hao.lzlglab.entity.SmartDevice">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_addr" jdbcType="CHAR" property="deviceAddr" />
+    <result column="device_type" jdbcType="CHAR" property="deviceType" />
+    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+    <result column="open" jdbcType="CHAR" property="open" />
+    <result column="close" jdbcType="CHAR" property="close" />
+    <result column="max_threshold" jdbcType="INTEGER" property="maxThreshold" />
+    <result column="min_threshold" jdbcType="INTEGER" property="minThreshold" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, device_name, device_addr, device_type, labs_id, `open`, `close`, max_threshold, 
+    min_threshold
+  </sql>
+  <select id="selectByExample" parameterType="com.hao.lzlglab.entity.SmartDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from smart_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from smart_device
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_device
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hao.lzlglab.entity.SmartDeviceExample">
+    delete from smart_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hao.lzlglab.entity.SmartDevice">
+    insert into smart_device (id, device_name, device_addr, 
+      device_type, labs_id, `open`, `close`, 
+      max_threshold, min_threshold)
+    values (#{id,jdbcType=CHAR}, #{deviceName,jdbcType=VARCHAR}, #{deviceAddr,jdbcType=CHAR}, 
+      #{deviceType,jdbcType=CHAR}, #{labsId,jdbcType=CHAR}, #{open,jdbcType=CHAR}, #{close,jdbcType=CHAR}, 
+      #{maxThreshold,jdbcType=INTEGER}, #{minThreshold,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hao.lzlglab.entity.SmartDevice">
+    insert into smart_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="deviceAddr != null">
+        device_addr,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="labsId != null">
+        labs_id,
+      </if>
+      <if test="open != null">
+        `open`,
+      </if>
+      <if test="close != null">
+        `close`,
+      </if>
+      <if test="maxThreshold != null">
+        max_threshold,
+      </if>
+      <if test="minThreshold != null">
+        min_threshold,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddr != null">
+        #{deviceAddr,jdbcType=CHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=CHAR},
+      </if>
+      <if test="labsId != null">
+        #{labsId,jdbcType=CHAR},
+      </if>
+      <if test="open != null">
+        #{open,jdbcType=CHAR},
+      </if>
+      <if test="close != null">
+        #{close,jdbcType=CHAR},
+      </if>
+      <if test="maxThreshold != null">
+        #{maxThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="minThreshold != null">
+        #{minThreshold,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hao.lzlglab.entity.SmartDeviceExample" resultType="java.lang.Long">
+    select count(*) from smart_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update smart_device
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceAddr != null">
+        device_addr = #{record.deviceAddr,jdbcType=CHAR},
+      </if>
+      <if test="record.deviceType != null">
+        device_type = #{record.deviceType,jdbcType=CHAR},
+      </if>
+      <if test="record.labsId != null">
+        labs_id = #{record.labsId,jdbcType=CHAR},
+      </if>
+      <if test="record.open != null">
+        `open` = #{record.open,jdbcType=CHAR},
+      </if>
+      <if test="record.close != null">
+        `close` = #{record.close,jdbcType=CHAR},
+      </if>
+      <if test="record.maxThreshold != null">
+        max_threshold = #{record.maxThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="record.minThreshold != null">
+        min_threshold = #{record.minThreshold,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update smart_device
+    set id = #{record.id,jdbcType=CHAR},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_addr = #{record.deviceAddr,jdbcType=CHAR},
+      device_type = #{record.deviceType,jdbcType=CHAR},
+      labs_id = #{record.labsId,jdbcType=CHAR},
+      `open` = #{record.open,jdbcType=CHAR},
+      `close` = #{record.close,jdbcType=CHAR},
+      max_threshold = #{record.maxThreshold,jdbcType=INTEGER},
+      min_threshold = #{record.minThreshold,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hao.lzlglab.entity.SmartDevice">
+    update smart_device
+    <set>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddr != null">
+        device_addr = #{deviceAddr,jdbcType=CHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=CHAR},
+      </if>
+      <if test="labsId != null">
+        labs_id = #{labsId,jdbcType=CHAR},
+      </if>
+      <if test="open != null">
+        `open` = #{open,jdbcType=CHAR},
+      </if>
+      <if test="close != null">
+        `close` = #{close,jdbcType=CHAR},
+      </if>
+      <if test="maxThreshold != null">
+        max_threshold = #{maxThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="minThreshold != null">
+        min_threshold = #{minThreshold,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hao.lzlglab.entity.SmartDevice">
+    update smart_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_addr = #{deviceAddr,jdbcType=CHAR},
+      device_type = #{deviceType,jdbcType=CHAR},
+      labs_id = #{labsId,jdbcType=CHAR},
+      `open` = #{open,jdbcType=CHAR},
+      `close` = #{close,jdbcType=CHAR},
+      max_threshold = #{maxThreshold,jdbcType=INTEGER},
+      min_threshold = #{minThreshold,jdbcType=INTEGER}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

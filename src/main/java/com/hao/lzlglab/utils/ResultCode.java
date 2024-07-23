@@ -18,6 +18,7 @@ public enum ResultCode {
     LOGIN_DEFINED(1002,"登录失败"),
     DATA_NOT_EXIST(2002,"数据不存在");
 
+
     private Integer code;
     private String message;
 

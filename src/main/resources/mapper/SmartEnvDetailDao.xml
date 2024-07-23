@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hao.lzlglab.dao.SmartEnvDetailDao">
+  <resultMap id="BaseResultMap" type="com.hao.lzlglab.entity.SmartEnvDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="device_adres" jdbcType="VARCHAR" property="deviceAdres" />
+    <result column="pm25" jdbcType="DOUBLE" property="pm25" />
+    <result column="co2" jdbcType="DOUBLE" property="co2" />
+    <result column="ch2o" jdbcType="DOUBLE" property="ch2o" />
+    <result column="tvoc" jdbcType="DOUBLE" property="tvoc" />
+    <result column="temperature" jdbcType="DOUBLE" property="temperature" />
+    <result column="humidity" jdbcType="DOUBLE" property="humidity" />
+    <result column="air" jdbcType="DOUBLE" property="air" />
+    <result column="gather_date" jdbcType="TIMESTAMP" property="gatherDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, device_adres, pm25, co2, ch2o, tvoc, temperature, humidity, air, gather_date
+  </sql>
+  <select id="selectByExample" parameterType="com.hao.lzlglab.entity.SmartEnvDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from smart_env_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from smart_env_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smart_env_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hao.lzlglab.entity.SmartEnvDetailExample">
+    delete from smart_env_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hao.lzlglab.entity.SmartEnvDetail">
+    insert into smart_env_detail (id, device_adres, pm25, 
+      co2, ch2o, tvoc, temperature, 
+      humidity, air, gather_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{deviceAdres,jdbcType=VARCHAR}, #{pm25,jdbcType=DOUBLE}, 
+      #{co2,jdbcType=DOUBLE}, #{ch2o,jdbcType=DOUBLE}, #{tvoc,jdbcType=DOUBLE}, #{temperature,jdbcType=DOUBLE}, 
+      #{humidity,jdbcType=DOUBLE}, #{air,jdbcType=DOUBLE}, #{gatherDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hao.lzlglab.entity.SmartEnvDetail">
+    insert into smart_env_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceAdres != null">
+        device_adres,
+      </if>
+      <if test="pm25 != null">
+        pm25,
+      </if>
+      <if test="co2 != null">
+        co2,
+      </if>
+      <if test="ch2o != null">
+        ch2o,
+      </if>
+      <if test="tvoc != null">
+        tvoc,
+      </if>
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="humidity != null">
+        humidity,
+      </if>
+      <if test="air != null">
+        air,
+      </if>
+      <if test="gatherDate != null">
+        gather_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceAdres != null">
+        #{deviceAdres,jdbcType=VARCHAR},
+      </if>
+      <if test="pm25 != null">
+        #{pm25,jdbcType=DOUBLE},
+      </if>
+      <if test="co2 != null">
+        #{co2,jdbcType=DOUBLE},
+      </if>
+      <if test="ch2o != null">
+        #{ch2o,jdbcType=DOUBLE},
+      </if>
+      <if test="tvoc != null">
+        #{tvoc,jdbcType=DOUBLE},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=DOUBLE},
+      </if>
+      <if test="humidity != null">
+        #{humidity,jdbcType=DOUBLE},
+      </if>
+      <if test="air != null">
+        #{air,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherDate != null">
+        #{gatherDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hao.lzlglab.entity.SmartEnvDetailExample" resultType="java.lang.Long">
+    select count(*) from smart_env_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update smart_env_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceAdres != null">
+        device_adres = #{record.deviceAdres,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pm25 != null">
+        pm25 = #{record.pm25,jdbcType=DOUBLE},
+      </if>
+      <if test="record.co2 != null">
+        co2 = #{record.co2,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ch2o != null">
+        ch2o = #{record.ch2o,jdbcType=DOUBLE},
+      </if>
+      <if test="record.tvoc != null">
+        tvoc = #{record.tvoc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.temperature != null">
+        temperature = #{record.temperature,jdbcType=DOUBLE},
+      </if>
+      <if test="record.humidity != null">
+        humidity = #{record.humidity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.air != null">
+        air = #{record.air,jdbcType=DOUBLE},
+      </if>
+      <if test="record.gatherDate != null">
+        gather_date = #{record.gatherDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update smart_env_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      device_adres = #{record.deviceAdres,jdbcType=VARCHAR},
+      pm25 = #{record.pm25,jdbcType=DOUBLE},
+      co2 = #{record.co2,jdbcType=DOUBLE},
+      ch2o = #{record.ch2o,jdbcType=DOUBLE},
+      tvoc = #{record.tvoc,jdbcType=DOUBLE},
+      temperature = #{record.temperature,jdbcType=DOUBLE},
+      humidity = #{record.humidity,jdbcType=DOUBLE},
+      air = #{record.air,jdbcType=DOUBLE},
+      gather_date = #{record.gatherDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hao.lzlglab.entity.SmartEnvDetail">
+    update smart_env_detail
+    <set>
+      <if test="deviceAdres != null">
+        device_adres = #{deviceAdres,jdbcType=VARCHAR},
+      </if>
+      <if test="pm25 != null">
+        pm25 = #{pm25,jdbcType=DOUBLE},
+      </if>
+      <if test="co2 != null">
+        co2 = #{co2,jdbcType=DOUBLE},
+      </if>
+      <if test="ch2o != null">
+        ch2o = #{ch2o,jdbcType=DOUBLE},
+      </if>
+      <if test="tvoc != null">
+        tvoc = #{tvoc,jdbcType=DOUBLE},
+      </if>
+      <if test="temperature != null">
+        temperature = #{temperature,jdbcType=DOUBLE},
+      </if>
+      <if test="humidity != null">
+        humidity = #{humidity,jdbcType=DOUBLE},
+      </if>
+      <if test="air != null">
+        air = #{air,jdbcType=DOUBLE},
+      </if>
+      <if test="gatherDate != null">
+        gather_date = #{gatherDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hao.lzlglab.entity.SmartEnvDetail">
+    update smart_env_detail
+    set device_adres = #{deviceAdres,jdbcType=VARCHAR},
+      pm25 = #{pm25,jdbcType=DOUBLE},
+      co2 = #{co2,jdbcType=DOUBLE},
+      ch2o = #{ch2o,jdbcType=DOUBLE},
+      tvoc = #{tvoc,jdbcType=DOUBLE},
+      temperature = #{temperature,jdbcType=DOUBLE},
+      humidity = #{humidity,jdbcType=DOUBLE},
+      air = #{air,jdbcType=DOUBLE},
+      gather_date = #{gatherDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
